@@ -1,29 +1,12 @@
 "use client";
 
 import { useState, useRef, type FC } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import "./Faq.css";
 
 interface FaqItem {
   question: string;
   answer: string;
-}
-
-interface VariantProps {
-  hidden: {
-    opacity: number;
-    y?: number;
-  };
-  visible: {
-    opacity: number;
-    y?: number;
-    transition: {
-      duration?: number;
-      delayChildren?: number;
-      staggerChildren?: number;
-    };
-  };
 }
 
 const Faq: FC = () => {
@@ -64,7 +47,7 @@ const Faq: FC = () => {
     },
   ];
 
-  const containerVariants: VariantProps = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -75,7 +58,7 @@ const Faq: FC = () => {
     },
   };
 
-  const itemVariants: VariantProps = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,

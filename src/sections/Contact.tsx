@@ -85,10 +85,10 @@ const Contact: FC = () => {
       if (form.current) {
         emailjs
           .sendForm(
-            "YOUR_SERVICE_ID", // Reemplazar con tu Service ID
-            "YOUR_TEMPLATE_ID", // Reemplazar con tu Template ID
+            "service_7n14l3u", // Reemplazar con tu Service ID
+            "template_clpomkp", // Reemplazar con tu Template ID
             form.current,
-            "YOUR_PUBLIC_KEY" // Reemplazar con tu Public Key
+            "ztpx9Pmjl4RRRYPTm" // Reemplazar con tu Public Key
           )
           .then((result) => {
             console.log("Email enviado:", result.text);

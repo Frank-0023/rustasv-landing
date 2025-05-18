@@ -1,9 +1,8 @@
 "use client";
 
 import type React from "react";
-
 import { useRef, type FC } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import {
   FaMapMarkedAlt,
   FaMoneyBillWave,
@@ -20,27 +19,11 @@ interface FunctionItem {
   color: string;
 }
 
-interface VariantProps {
-  hidden: {
-    opacity: number;
-    y?: number;
-  };
-  visible: {
-    opacity: number;
-    y?: number;
-    transition: {
-      duration?: number;
-      delayChildren?: number;
-      staggerChildren?: number;
-    };
-  };
-}
-
 const Functions: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const containerVariants: VariantProps = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -51,7 +34,7 @@ const Functions: FC = () => {
     },
   };
 
-  const itemVariants: VariantProps = {
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
@@ -131,40 +114,36 @@ const Functions: FC = () => {
             <h3>¿Cómo funciona?</h3>
             <div className="how-content">
               <div className="how-steps">
-                <div className="step">
-                  <div className="step-number">1</div>
-                  <div className="step-content">
-                    <h4>Descarga la aplicación</h4>
-                    <p>Disponible para iOS y Android de forma gratuita.</p>
+                {[
+                  {
+                    step: "1",
+                    title: "Descarga la aplicación",
+                    text: "Disponible para iOS y Android de forma gratuita.",
+                  },
+                  {
+                    step: "2",
+                    title: "Ingresa tu ubicación y destino",
+                    text: "Usa el buscador o selecciona directamente en el mapa.",
+                  },
+                  {
+                    step: "3",
+                    title: "Explora las opciones de ruta",
+                    text: "Compara tiempos, costos y conexiones entre diferentes opciones.",
+                  },
+                  {
+                    step: "4",
+                    title: "¡Comienza tu viaje!",
+                    text: "Sigue las indicaciones paso a paso y recibe alertas en tiempo real.",
+                  },
+                ].map((s, i) => (
+                  <div className="step" key={i}>
+                    <div className="step-number">{s.step}</div>
+                    <div className="step-content">
+                      <h4>{s.title}</h4>
+                      <p>{s.text}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">2</div>
-                  <div className="step-content">
-                    <h4>Ingresa tu ubicación y destino</h4>
-                    <p>Usa el buscador o selecciona directamente en el mapa.</p>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">3</div>
-                  <div className="step-content">
-                    <h4>Explora las opciones de ruta</h4>
-                    <p>
-                      Compara tiempos, costos y conexiones entre diferentes
-                      opciones.
-                    </p>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">4</div>
-                  <div className="step-content">
-                    <h4>¡Comienza tu viaje!</h4>
-                    <p>
-                      Sigue las indicaciones paso a paso y recibe alertas en
-                      tiempo real.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
               <div className="how-image">
                 <img src="/route-vector.png" alt="Ruta en móvil" />
