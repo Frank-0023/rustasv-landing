@@ -103,7 +103,7 @@ const Hero: FC = () => {
               rel="noopener noreferrer"
               className="btn btn-primary hero-cta"
             >
-              Probar ahora
+              Descargar ahora
             </a>
           </div>
 

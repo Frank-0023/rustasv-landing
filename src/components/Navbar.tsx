@@ -80,7 +80,7 @@ const Navbar: FC = () => {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              Probar ahora
+              Descargar ahora
             </a>
           </li>
         </ul>
