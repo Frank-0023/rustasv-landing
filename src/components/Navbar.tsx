@@ -1,21 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FC } from "react";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./Navbar.css";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+interface NavItem {
+  name: string;
+  to: string;
+}
 
-  const toggleMenu = () => {
+const Navbar: FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
+  const toggleMenu = (): void => {
     setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
@@ -29,7 +34,7 @@ const Navbar = () => {
     };
   }, []);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: "Inicio", to: "inicio" },
     { name: "Sobre nosotros", to: "sobre-nosotros" },
     { name: "Funciones", to: "funciones" },
@@ -75,7 +80,7 @@ const Navbar = () => {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              Descargar ahora
+              Probar ahora
             </a>
           </li>
         </ul>

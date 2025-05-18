@@ -1,24 +1,44 @@
 "use client";
 
-import { useState, useRef } from "react";
+import {
+  useState,
+  useRef,
+  type FC,
+  type FormEvent,
+  type ChangeEvent,
+} from "react";
 import { FaEnvelope, FaFacebook } from "react-icons/fa";
 import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
 import "./Contact.css";
 
-const Contact = () => {
-  const form = useRef();
-  const [loading, setLoading] = useState(false);
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
 
-  const [formData, setFormData] = useState({
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
+
+const Contact: FC = () => {
+  const form = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     message: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -26,7 +46,7 @@ const Contact = () => {
     });
 
     // Clear error when user types
-    if (errors[name]) {
+    if (errors[name as keyof FormErrors]) {
       setErrors({
         ...errors,
         [name]: "",
@@ -34,8 +54,8 @@ const Contact = () => {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
       newErrors.name = "El nombre es requerido";
@@ -55,53 +75,55 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (validateForm()) {
       setLoading(true);
 
       // Enviar el formulario usando EmailJS
-      emailjs
-        .sendForm(
-          "service_7n14l3u", // Reemplazar con tu Service ID
-          "template_clpomkp", // Reemplazar con tu Template ID
-          form.current,
-          "ztpx9Pmjl4RRRYPTm" // Reemplazar con tu Public Key
-        )
-        .then((result) => {
-          console.log("Email enviado:", result.text);
-          setLoading(false);
+      if (form.current) {
+        emailjs
+          .sendForm(
+            "YOUR_SERVICE_ID", // Reemplazar con tu Service ID
+            "YOUR_TEMPLATE_ID", // Reemplazar con tu Template ID
+            form.current,
+            "YOUR_PUBLIC_KEY" // Reemplazar con tu Public Key
+          )
+          .then((result) => {
+            console.log("Email enviado:", result.text);
+            setLoading(false);
 
-          // Mostrar SweetAlert2 de éxito
-          Swal.fire({
-            title: "¡Mensaje enviado!",
-            text: "Gracias por contactarnos. Te responderemos pronto.",
-            icon: "success",
-            confirmButtonText: "Aceptar",
-            confirmButtonColor: "#00E09E",
-          });
+            // Mostrar SweetAlert2 de éxito
+            Swal.fire({
+              title: "¡Mensaje enviado!",
+              text: "Gracias por contactarnos. Te responderemos pronto.",
+              icon: "success",
+              confirmButtonText: "Aceptar",
+              confirmButtonColor: "#00E09E",
+            });
 
-          // Resetear formulario
-          setFormData({
-            name: "",
-            email: "",
-            message: "",
-          });
-        })
-        .catch((error) => {
-          console.error("Error al enviar email:", error);
-          setLoading(false);
+            // Resetear formulario
+            setFormData({
+              name: "",
+              email: "",
+              message: "",
+            });
+          })
+          .catch((error) => {
+            console.error("Error al enviar email:", error);
+            setLoading(false);
 
-          // Mostrar SweetAlert2 de error
-          Swal.fire({
-            title: "Error",
-            text: "Hubo un problema al enviar tu mensaje. Por favor, intenta nuevamente.",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-            confirmButtonColor: "#00E09E",
+            // Mostrar SweetAlert2 de error
+            Swal.fire({
+              title: "Error",
+              text: "Hubo un problema al enviar tu mensaje. Por favor, intenta nuevamente.",
+              icon: "error",
+              confirmButtonText: "Aceptar",
+              confirmButtonColor: "#00E09E",
+            });
           });
-        });
+      }
     }
   };
 
@@ -118,7 +140,7 @@ const Contact = () => {
             <div className="contact-details">
               <div className="contact-item">
                 <FaEnvelope className="contact-icon" />
-                <span>soporte.rustasv@gmail.com</span>
+                <span>soporte@rustasv.com</span>
               </div>
               <div className="contact-item">
                 <FaFacebook className="contact-icon" />
@@ -164,7 +186,7 @@ const Contact = () => {
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
+                  rows={5}
                   value={formData.message}
                   onChange={handleChange}
                   className={errors.message ? "error" : ""}

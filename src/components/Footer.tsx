@@ -1,9 +1,17 @@
+"use client";
+
+import type { FC } from "react";
 import { Link } from "react-scroll";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import "./Footer.css";
 
-const Footer = () => {
-  const navItems = [
+interface NavItem {
+  name: string;
+  to: string;
+}
+
+const Footer: FC = () => {
+  const navItems: NavItem[] = [
     { name: "Inicio", to: "inicio" },
     { name: "Sobre nosotros", to: "sobre-nosotros" },
     { name: "Funciones", to: "funciones" },

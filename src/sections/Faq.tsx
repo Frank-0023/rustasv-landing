@@ -1,20 +1,41 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, type FC } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import "./Faq.css";
 
-const Faq = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [activeIndex, setActiveIndex] = useState(null);
+interface FaqItem {
+  question: string;
+  answer: string;
+}
 
-  const toggleAccordion = (index) => {
+interface VariantProps {
+  hidden: {
+    opacity: number;
+    y?: number;
+  };
+  visible: {
+    opacity: number;
+    y?: number;
+    transition: {
+      duration?: number;
+      delayChildren?: number;
+      staggerChildren?: number;
+    };
+  };
+}
+
+const Faq: FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const toggleAccordion = (index: number): void => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const faqItems = [
+  const faqItems: FaqItem[] = [
     {
       question: "¿En qué ciudades está disponible RutaSV?",
       answer:
@@ -43,7 +64,7 @@ const Faq = () => {
     },
   ];
 
-  const containerVariants = {
+  const containerVariants: VariantProps = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -54,7 +75,7 @@ const Faq = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: VariantProps = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,

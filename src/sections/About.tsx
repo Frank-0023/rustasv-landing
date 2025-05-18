@@ -1,10 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FC } from "react";
 import "./About.css";
 
-const About = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+interface Developer {
+  name: string;
+  role: string;
+  avatar: string;
+}
+
+const About: FC = () => {
+  const [imagesLoaded, setImagesLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     // Marcar como cargado después de un breve tiempo para asegurar renderizado
@@ -15,29 +21,25 @@ const About = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const developers = [
+  const developers: Developer[] = [
     {
-      name: "Francisco González",
+      name: "Carlos Mendoza",
       role: "Frontend Developer",
       avatar: "/avatar1.jpg",
     },
-    { name: "Erick Arias", role: "UX/UI Designer", avatar: "/avatar2.jpg" },
+    { name: "Ana Martínez", role: "UX/UI Designer", avatar: "/avatar2.jpg" },
     {
-      name: "Luis Martínez",
+      name: "Roberto Sánchez",
       role: "Backend Developer",
       avatar: "/avatar3.jpg",
     },
     {
-      name: "Pavel Perez",
+      name: "Elena Gutiérrez",
       role: "Mobile Developer",
       avatar: "/avatar4.jpg",
     },
-    {
-      name: "Emanuel Alejandro",
-      role: "Data Scientist",
-      avatar: "/avatar5.jpg",
-    },
-    { name: "Henry Mauricio", role: "Project Manager", avatar: "/avatar6.jpg" },
+    { name: "Juan Pérez", role: "Data Scientist", avatar: "/avatar5.jpg" },
+    { name: "María López", role: "Project Manager", avatar: "/avatar6.jpg" },
   ];
 
   return (
@@ -69,8 +71,8 @@ const About = () => {
                   src="/mockup.png"
                   alt="RutaSV App Mockup"
                   loading="lazy"
-                  width="400"
-                  height="300"
+                  width={400}
+                  height={300}
                   style={{ maxWidth: "100%", height: "auto" }}
                 />
               </div>
@@ -85,8 +87,8 @@ const About = () => {
                   src="/users-bus.jpg"
                   alt="Usuarios en bus"
                   loading="lazy"
-                  width="400"
-                  height="300"
+                  width={400}
+                  height={300}
                   style={{ maxWidth: "100%", height: "auto" }}
                 />
               </div>
@@ -118,8 +120,8 @@ const About = () => {
                       src={dev.avatar || "/placeholder.svg"}
                       alt={dev.name}
                       loading="lazy"
-                      width="80"
-                      height="80"
+                      width={80}
+                      height={80}
                       style={{
                         width: "100%",
                         height: "100%",

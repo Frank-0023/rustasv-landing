@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import type React from "react";
+
+import { useRef, type FC } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   FaMapMarkedAlt,
   FaMoneyBillWave,
@@ -12,11 +13,34 @@ import {
 } from "react-icons/fa";
 import "./Functions.css";
 
-const Functions = () => {
-  const ref = useRef(null);
+interface FunctionItem {
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  color: string;
+}
+
+interface VariantProps {
+  hidden: {
+    opacity: number;
+    y?: number;
+  };
+  visible: {
+    opacity: number;
+    y?: number;
+    transition: {
+      duration?: number;
+      delayChildren?: number;
+      staggerChildren?: number;
+    };
+  };
+}
+
+const Functions: FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const containerVariants = {
+  const containerVariants: VariantProps = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -27,7 +51,7 @@ const Functions = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: VariantProps = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
@@ -36,7 +60,7 @@ const Functions = () => {
     },
   };
 
-  const functionsList = [
+  const functionsList: FunctionItem[] = [
     {
       title: "Mapa interactivo",
       description:
@@ -92,7 +116,7 @@ const Functions = () => {
                 key={index}
                 className="function-card"
                 variants={itemVariants}
-                style={{ "--accent-color": func.color }}
+                style={{ "--accent-color": func.color } as React.CSSProperties}
               >
                 <div className="function-icon" style={{ color: func.color }}>
                   {func.icon}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type FC } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
@@ -10,7 +10,7 @@ import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import "./App.css";
 
-function App() {
+const App: FC = () => {
   useEffect(() => {
     // Aplicar el fondo oscuro al body
     document.body.style.backgroundColor = "#0E0E17";
@@ -37,6 +37,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

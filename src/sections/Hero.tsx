@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type FC } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -11,29 +11,36 @@ import {
 } from "react-icons/fa";
 import "./Hero.css";
 
-const Hero = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 6; // Total de imágenes en el slider
-  const timeoutRef = useRef(null);
-  const sliderRef = useRef(null);
+interface QuickFeature {
+  title: string;
+  icon: JSX.Element;
+  bgColor: string;
+  color: string;
+}
+
+const Hero: FC = () => {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const totalSlides: number = 6; // Total de imágenes en el slider
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
   // Función para avanzar al siguiente slide
-  const nextSlide = () => {
+  const nextSlide = (): void => {
     setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
   };
 
   // Función para retroceder al slide anterior
-  const prevSlide = () => {
+  const prevSlide = (): void => {
     setCurrentSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
   };
 
   // Función para ir a un slide específico
-  const goToSlide = (index) => {
+  const goToSlide = (index: number): void => {
     setCurrentSlide(index);
   };
 
   // Reiniciar el temporizador cuando se cambia manualmente el slide
-  const resetTimeout = () => {
+  const resetTimeout = (): void => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -52,7 +59,7 @@ const Hero = () => {
   }, [currentSlide]);
 
   // Datos de las características rápidas con sus iconos
-  const quickFeatures = [
+  const quickFeatures: QuickFeature[] = [
     {
       title: "Mapa interactivo",
       icon: <FaMapMarkedAlt size={24} />,
@@ -96,7 +103,7 @@ const Hero = () => {
               rel="noopener noreferrer"
               className="btn btn-primary hero-cta"
             >
-              Descargar ahora
+              Probar ahora
             </a>
           </div>
 
