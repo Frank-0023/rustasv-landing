@@ -23,23 +23,27 @@ const About: FC = () => {
 
   const developers: Developer[] = [
     {
-      name: "Carlos Mendoza",
+      name: "Francisco González",
       role: "Frontend Developer",
       avatar: "/avatar1.jpg",
     },
-    { name: "Ana Martínez", role: "UX/UI Designer", avatar: "/avatar2.jpg" },
+    { name: "Erick Arias", role: "UX/UI Designer", avatar: "/avatar2.jpg" },
     {
-      name: "Roberto Sánchez",
+      name: "Luis Martínez",
       role: "Backend Developer",
       avatar: "/avatar3.jpg",
     },
     {
-      name: "Elena Gutiérrez",
+      name: "Pavel Peréz",
       role: "Mobile Developer",
       avatar: "/avatar4.jpg",
     },
-    { name: "Juan Pérez", role: "Data Scientist", avatar: "/avatar5.jpg" },
-    { name: "María López", role: "Project Manager", avatar: "/avatar6.jpg" },
+    {
+      name: "Emanuel Martínez",
+      role: "Data Scientist",
+      avatar: "/avatar5.jpg",
+    },
+    { name: "Henry Mattínez", role: "Project Manager", avatar: "/avatar6.jpg" },
   ];
 
   return (
